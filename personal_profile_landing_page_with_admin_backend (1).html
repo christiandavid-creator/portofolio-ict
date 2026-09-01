@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page Profil & Admin Panel - Aditia Rahmania</title>
+  
+  <!-- Font Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-cream: #FAF6F0;
+      --card-cream: #FFFFFF;
+      --pastel-teal: #70B7BA;
+      --light-teal: #EAF4F4;
+      --dark-teal: #234E52;
+      --text-main: #2D3748;
+      --text-muted: #64748B;
+      --danger-red: #E53E3E;
+      --danger-light: #FFF5F5;
+      --border-color: rgba(112, 183, 186, 0.2);
+      --hero-bg: linear-gradient(135deg, rgba(112, 183, 186, 0.18) 0%, rgba(234, 244, 244, 0.8) 50%, #FFFFFF 100%);
+      --shadow-sm: 0 4px 12px rgba(35, 78, 82, 0.05);
+      --shadow-md: 0 10px 25px rgba(35, 78, 82, 0.1);
+      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+    }
+
+    [data-theme="dark"] {
+      --bg-cream: #12181A;
+      --card-cream: #1A2326;
+      --pastel-teal: #52A0A3;
+      --light-teal: #223336;
+      --dark-teal: #A2E0E3;
+      --text-main: #E2E8F0;
+      --text-muted: #94A3B8;
+      --danger-red: #FC8181;
+      --danger-light: #2D1A1A;
+      --border-color: rgba(112, 183, 186, 0.25);
+      --hero-bg: linear-gradient(135deg, rgba(82, 160, 163, 0.25) 0%, #1F2C30 50%, #1A2326 100%);
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 4.8rem;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-cream);
+      background-image: url('https://i.pinimg.com/736x/7d/bd/7f/7dbd7fa4e889a1c3867d94f132793a36.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 0.85rem;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .app-container {
+      max-width: 640px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      position: relative;
+    }
+
+    .sticky-nav {
+      position: sticky;
+      top: 0.75rem;
+      z-index: 100;
+      background-color: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 20px rgba(35, 78, 82, 0.08);
+      border: 1px solid var(--border-color);
+      padding: 0.4rem 0.6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    [data-theme="dark"] .sticky-nav {
+      background-color: rgba(26, 35, 38, 0.92);
+    }
+
+    .nav-list {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      list-style: none;
+      width: 100%;
+      gap: 0.2rem;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--dark-teal);
+      font-weight: 600;
+      font-size: 0.75rem;
+      padding: 0.4rem 0.5rem;
+      border-radius: var(--radius-sm);
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .nav-link:hover, .nav-link:active {
+      background-color: var(--light-teal);
+      color: var(--pastel-teal);
+    }
+
+    .btn-theme-toggle {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--dark-teal);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.55rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-theme-toggle:hover {
+      background-color: var(--light-teal);
+      transform: scale(1.05);
+    }
+
+    .btn-admin-trigger {
+      background-color: var(--dark-teal);
+      color: #FFFFFF;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      white-space: nowrap;
+    }
+
+    [data-theme="dark"] .btn-admin-trigger {
+      color: #12181A;
+    }
+
+    .btn-admin-trigger:hover {
+      background-color: var(--pastel-teal);
+      transform: translateY(-1px);
+    }
+
+    .card {
+      background-color: var(--card-cream);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .hero-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1rem;
+      background: var(--hero-bg);
+      border: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .avatar-wrapper {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(135deg, var(--pastel-teal), var(--light-teal));
+      box-shadow: 0 6px 16px rgba(35, 78, 82, 0.12);
+      flex-shrink: 0;
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: var(--light-teal);
+    }
+
+    .avatar-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-content .name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--dark-teal);
+      margin-bottom: 0.2rem;
+    }
+
+    .hero-content .role {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+      padding: 0.35rem 0.85rem;
+      background-color: var(--light-teal);
+      color: var(--dark-teal);
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #38A169;
+      border-radius: 50%;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark-teal);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-title-text {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title-text::before {
+      content: '';
+      width: 4px;
+      height: 1.1rem;
+      background-color: var(--pastel-teal);
+      border-radius: 4px;
+    }
+
+    .bio-text {
+      font-size: 0.875rem;
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .hobby-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+
+    @media (min-width: 480px) {
+      .hobby-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .hobby-card {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.9rem;
+      background-color: var(--light-teal);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 6px rgba(35, 78, 82, 0.04);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+    }
+
+    .hobby-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(35, 78, 82, 0.12);
+      background-color: var(--card-cream);
+      border-color: var(--pastel-teal);
+    }
+
+    .hobby-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
+      background-color: var(--card-cream);
+      color: var(--dark-teal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.2rem;
+      transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .hobby-card:hover .hobby-icon {
+      transform: scale(1.1) rotate(5deg);
+      background-color: var(--pastel-teal);
+      color: #FFFFFF;
+    }
+
+    .hobby-info h3 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--dark-teal);
+    }
+
+    .hobby-info p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .skills-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-chip {
+      background-color: var(--light-teal);
+      color: var(--dark-teal);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.45rem 0.85rem;
+      border-radius: 50px;
+      border: 1px solid var(--border-color);
+    }
+
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .project-card {
+      padding: 1rem;
+      background-color: var(--light-teal);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      border: 1px solid var(--border-color);
+      transition: transform 0.25s ease, background-color 0.25s ease;
+    }
+
+    .project-card:hover, .project-card:active {
+      transform: translateY(-2px);
+      background-color: var(--card-cream);
+    }
+
+    .project-card h3 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--dark-teal);
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .project-card h3::after {
+      content: '↗';
+      font-size: 1rem;
+      color: var(--pastel-teal);
+    }
+
+    .project-card p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-top: 0.5rem;
+    }
+
+    .contact-form .form-input:user-invalid,
+    .contact-form .form-textarea:user-invalid {
+      border-color: var(--danger-red);
+      background-color: var(--danger-light);
+    }
+
+    .contact-form .form-input:user-valid,
+    .contact-form .form-textarea:user-valid {
+      border-color: #38A169;
+    }
+
+    .validation-hint {
+      font-size: 0.72rem;
+      color: var(--danger-red);
+      display: none;
+      font-weight: 500;
+    }
+
+    .contact-form .form-input:user-invalid ~ .validation-hint,
+    .contact-form .form-textarea:user-invalid ~ .validation-hint {
+      display: block;
+    }
+
+    .action-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-primary {
+      background-color: var(--pastel-teal);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(112, 183, 186, 0.35);
+    }
+
+    .btn-primary:hover, .btn-primary:active {
+      background-color: var(--dark-teal);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--dark-teal);
+      border: 1.5px solid var(--pastel-teal);
+    }
+
+    .btn-secondary:hover, .btn-secondary:active {
+      background-color: var(--light-teal);
+    }
+
+    .btn-danger {
+      background-color: var(--danger-red);
+      color: #FFFFFF;
+    }
+
+    .btn-danger:hover {
+      background-color: #C53030;
+    }
+
+    .btn-sm {
+      min-height: 32px;
+      padding: 0.3rem 0.65rem;
+      font-size: 0.75rem;
+      border-radius: 8px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.25rem 0 0.5rem 0;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .social-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .social-icon {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--card-cream);
+      color: var(--dark-teal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(35, 78, 82, 0.05);
+      transition: all 0.25s ease;
+    }
+
+    .social-icon:hover, .social-icon:active {
+      background-color: var(--pastel-teal);
+      color: #FFFFFF;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(112, 183, 186, 0.35);
+    }
+
+    [data-theme="dark"] .social-icon:hover {
+      color: #12181A;
+    }
+
+    .social-icon[data-tooltip]::before {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background-color: var(--dark-teal);
+      color: var(--card-cream);
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+      box-shadow: var(--shadow-sm);
+      z-index: 10;
+    }
+
+    [data-theme="dark"] .social-icon[data-tooltip]::before {
+      color: #12181A;
+    }
+
+    .social-icon[data-tooltip]::after {
+      content: '';
+      position: absolute;
+      bottom: 102%;
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      border-width: 5px;
+      border-style: solid;
+      border-color: var(--dark-teal) transparent transparent transparent;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+      z-index: 10;
+    }
+
+    .social-icon[data-tooltip]:hover::before,
+    .social-icon[data-tooltip]:hover::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(35, 78, 82, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background-color: var(--card-cream);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-color);
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--light-teal);
+    }
+
+    .modal-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark-teal);
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0 0.5rem;
+      line-height: 1;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .form-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--dark-teal);
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid rgba(112, 183, 186, 0.3);
+      font-family: inherit;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      background-color: var(--bg-cream);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--pastel-teal);
+      box-shadow: 0 0 0 3px rgba(112, 183, 186, 0.2);
+      background-color: #FFFFFF;
+    }
+
+    .form-textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .admin-dashboard-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--bg-cream);
+      z-index: 900;
+      overflow-y: auto;
+      display: none;
+      flex-direction: column;
+    }
+
+    .admin-dashboard-container.active {
+      display: flex;
+    }
+
+    .admin-header {
+      background-color: var(--dark-teal);
+      color: #FFFFFF;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .admin-header h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .admin-nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      background-color: var(--card-cream);
+      border-bottom: 1px solid var(--border-color);
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .tab-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-cream);
+      color: var(--dark-teal);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background-color: var(--pastel-teal);
+      color: #FFFFFF;
+      border-color: var(--pastel-teal);
+    }
+
+    .admin-content {
+      max-width: 680px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 1.25rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .admin-card-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem;
+      background-color: var(--light-teal);
+      border-radius: var(--radius-md);
+      margin-bottom: 0.65rem;
+      gap: 0.5rem;
+    }
+
+    .admin-card-info {
+      flex: 1;
+    }
+
+    .admin-card-info h4 {
+      font-size: 0.88rem;
+      color: var(--dark-teal);
+    }
+
+    .admin-card-info p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: var(--dark-teal);
+      color: #FFFFFF;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.825rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-md);
+      z-index: 2000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .emoji-picker-container {
+      display: none;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      background-color: var(--bg-cream);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      max-height: 120px;
+      overflow-y: auto;
+    }
+
+    .emoji-picker-container.active {
+      display: flex;
+    }
+
+    .emoji-item-btn {
+      background: var(--card-cream);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.3rem 0.45rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+
+    .emoji-item-btn:hover {
+      transform: scale(1.25);
+      background-color: var(--light-teal);
+    }
+
+    @media (min-width: 600px) {
+      body {
+        padding: 2.5rem 1rem;
+      }
+      .hero-card {
+        flex-direction: row;
+        text-align: left;
+      }
+      .action-group {
+        flex-direction: row;
+      }
+      .btn {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Navigation Bar -->
+    <nav class="sticky-nav">
+      <ul class="nav-list">
+        <li><a href="#about" class="nav-link">Tentang</a></li>
+        <li><a href="#hobbies" class="nav-link">Hobi</a></li>
+        <li><a href="#skills" class="nav-link">Keahlian</a></li>
+        <li><a href="#projects" class="nav-link">Proyek</a></li>
+        <li><a href="#contact" class="nav-link">Kontak</a></li>
+        <li>
+          <button class="btn-theme-toggle" onclick="toggleDarkMode()" id="theme-toggle-btn" aria-label="Toggle Theme" title="Ganti Mode Terang/Gelap">
+            🌙
+          </button>
+        </li>
+        <li>
+          <button class="btn-admin-trigger" onclick="openLoginModal()" id="admin-nav-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <span id="admin-btn-text">Admin</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Hero Card Section -->
+    <section class="card hero-card" id="hero">
+      <div class="avatar-wrapper">
+        <div class="avatar-img">
+          <img id="display-avatar" src="https://placehold.co/100x100/70B7BA/FFFFFF?text=AR" alt="Foto Profil Aditia Rahmania" onerror="this.src='https://placehold.co/100x100/70B7BA/FFFFFF?text=AR'">
+        </div>
+      </div>
+      <div class="hero-content">
+        <h1 class="name" id="display-name">Aditia Rahmania</h1>
+        <p class="role" id="display-role">Mobile & UI/UX Designer</p>
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <span id="display-status">Tersedia untuk proyek baru</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="card" id="about">
+      <h2 class="section-title">
+        <span class="section-title-text">Tentang Saya</span>
+      </h2>
+      <p class="bio-text" id="display-bio">
+        Berfokus menciptakan antarmuka digital yang sederhana, intuitif, dan responsif. Mengutamakan kenyamanan pengguna di perangkat mobile dengan estetika yang bersih dan performa optimal.
+      </p>
+    </section>
+
+    <!-- Hobbies Section -->
+    <section class="card" id="hobbies">
+      <h2 class="section-title">
+        <span class="section-title-text">Hobi & Minat</span>
+      </h2>
+      <div class="hobby-grid" id="display-hobbies">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="card" id="skills">
+      <h2 class="section-title">
+        <span class="section-title-text">Keahlian</span>
+      </h2>
+      <div class="skills-wrapper" id="display-skills">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="card" id="projects">
+      <h2 class="section-title">
+        <span class="section-title-text">Proyek Pilihan</span>
+      </h2>
+      <div class="project-list" id="display-projects">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="card" id="contact">
+      <h2 class="section-title">
+        <span class="section-title-text">Kirim Pesan</span>
+      </h2>
+      
+      <form class="contact-form" onsubmit="handleContactSubmit(event)">
+        <div class="form-group">
+          <label class="form-label" for="contact-name">Nama Anda</label>
+          <input type="text" id="contact-name" class="form-input" placeholder="Masukkan nama lengkap" required minlength="3">
+          <span class="validation-hint">Nama wajib diisi minimal 3 karakter.</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="contact-email">Email Anda</label>
+          <input type="email" id="contact-email" class="form-input" placeholder="nama@email.com" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+          <span class="validation-hint">Format alamat email tidak valid (contoh: nama@domain.com).</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="contact-msg">Pesan / Diskusi Proyek</label>
+          <textarea id="contact-msg" class="form-textarea" placeholder="Tuliskan pesan Anda di sini..." required minlength="10"></textarea>
+          <span class="validation-hint">Pesan minimal 10 karakter.</span>
+        </div>
+
+        <div class="action-group" style="margin-top: 0.25rem;">
+          <button type="submit" class="btn btn-primary" style="flex: 1;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.4rem;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            Kirim Pesan
+          </button>
+          <a id="display-email-btn" href="mailto:halo@aditia.dev" class="btn btn-secondary">Kirim Email Direct</a>
+          <a id="display-resume-btn" href="#resume" class="btn btn-secondary">Lihat Resume</a>
+        </div>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="social-links" id="display-socials">
+        <!-- Rendered dynamically -->
+      </div>
+      <p>&copy; 2026 Aditia Rahmania. Dibuat dengan pendekatan Mobile-First & Dynamic Backend.</p>
+    </footer>
+
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">Pesan terkirim!</div>
+
+  <!-- MODAL: LOGIN ADMIN -->
+  <div class="modal-overlay" id="login-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Login Admin Backend</h3>
+        <button class="close-btn" onclick="closeLoginModal()">&times;</button>
+      </div>
+      <form onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          <input type="text" id="login-username" class="form-input" placeholder="Masukkan username" required value="admin">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="login-password" class="form-input" placeholder="Masukkan password" required value="admin123">
+        </div>
+        <p id="login-error" style="color: var(--danger-red); font-size: 0.78rem; display: none; margin-bottom: 0.8rem; font-weight: 600;">
+          Username atau password salah! (Default: admin / admin123)
+        </p>
+        <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeLoginModal()" style="flex: 1;">Batal</button>
+          <button type="submit" class="btn btn-primary" style="flex: 1;">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: DELETE CONFIRMATION -->
+  <div class="modal-overlay" id="delete-modal">
+    <div class="modal-card" style="max-width: 360px; text-align: center;">
+      <h3 class="modal-title" style="margin-bottom: 0.5rem;">Konfirmasi Hapus</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+        Apakah Anda yakin ingin menghapus item ini? Tindakan ini tidak dapat dibatalkan.
+      </p>
+      <div style="display: flex; gap: 0.5rem;">
+        <button class="btn btn-secondary" onclick="closeDeleteModal()" style="flex: 1;">Batal</button>
+        <button class="btn btn-danger" onclick="executeDelete()" style="flex: 1;">Hapus</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT ITEM -->
+  <div class="modal-overlay" id="item-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="item-modal-title">Tambah Kartu</h3>
+        <button class="close-btn" onclick="closeItemModal()">&times;</button>
+      </div>
+      <form onsubmit="handleSaveItem(event)">
+        <input type="hidden" id="item-type">
+        <input type="hidden" id="item-id">
+        
+        <div id="item-form-fields">
+          <!-- Dynamic form fields inserted via JS -->
+        </div>
+
+        <div style="display: flex; gap: 0.5rem; margin-top: 1.25rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeItemModal()" style="flex: 1;">Batal</button>
+          <button type="submit" class="btn btn-primary" style="flex: 1;">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADMIN DASHBOARD FULLSCREEN OVERLAY -->
+  <div class="admin-dashboard-container" id="admin-dashboard">
+    <div class="admin-header">
+      <h2>⚙️ Admin CMS Backend</h2>
+      <div style="display: flex; gap: 0.5rem;">
+        <button class="btn btn-secondary btn-sm" onclick="closeAdminDashboard()" style="color: white; border-color: white;">Lihat Frontend</button>
+        <button class="btn btn-danger btn-sm" onclick="handleLogout()">Logout</button>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="admin-nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('profile')">👤 Profil & Bio</button>
+      <button class="tab-btn" onclick="switchTab('projects')">🚀 Proyek</button>
+      <button class="tab-btn" onclick="switchTab('hobbies')">🎨 Hobi</button>
+      <button class="tab-btn" onclick="switchTab('skills')">⚡ Keahlian</button>
+      <button class="tab-btn" onclick="switchTab('contacts')">🌐 Kontak & Medsos</button>
+    </div>
+
+    <div class="admin-content">
+      <!-- TAB 1: PROFIL & BIO -->
+      <div id="tab-profile" class="tab-content">
+        <div class="card">
+          <h3 class="modal-title" style="margin-bottom: 1rem;">Kelola Informasi Utama</h3>
+          <form onsubmit="handleSaveProfile(event)">
+            <div class="form-group">
+              <label class="form-label">Nama Lengkap</label>
+              <input type="text" id="admin-name" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Role / Peran</label>
+              <input type="text" id="admin-role" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Status</label>
+              <div style="display: flex; gap: 0.4rem; align-items: center;">
+                <input type="text" id="admin-status" class="form-input" style="flex: 1;" required>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="toggleEmojiPicker('admin-status')" title="Pilih Emoji">😀 Emoji</button>
+              </div>
+              <div id="emoji-picker-admin-status" class="emoji-picker-container"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">URL Foto Profil</label>
+              <input type="text" id="admin-avatar" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Teks Bio / Tentang Saya</label>
+              <textarea id="admin-bio" class="form-textarea" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Simpan Perubahan Profil</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- TAB 2: PROYEK -->
+      <div id="tab-projects" class="tab-content" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 style="font-size: 1rem; color: var(--dark-teal);">Daftar Kartu Proyek</h3>
+          <button class="btn btn-primary btn-sm" onclick="openAddItemModal('project')">+ Tambah Proyek</button>
+        </div>
+        <div id="admin-projects-list">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+      <!-- TAB 3: HOBI -->
+      <div id="tab-hobbies" class="tab-content" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 style="font-size: 1rem; color: var(--dark-teal);">Daftar Kartu Hobi</h3>
+          <button class="btn btn-primary btn-sm" onclick="openAddItemModal('hobby')">+ Tambah Hobi</button>
+        </div>
+        <div id="admin-hobbies-list">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+      <!-- TAB 4: KEAHLIAN -->
+      <div id="tab-skills" class="tab-content" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 style="font-size: 1rem; color: var(--dark-teal);">Daftar Tag Keahlian</h3>
+          <button class="btn btn-primary btn-sm" onclick="openAddItemModal('skill')">+ Tambah Skill</button>
+        </div>
+        <div id="admin-skills-list">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+      <!-- TAB 5: KONTAK & MEDSOS -->
+      <div id="tab-contacts" class="tab-content" style="display: none;">
+        <div class="card">
+          <h3 class="modal-title" style="margin-bottom: 1rem;">Kelola Link Kontak & Medsos</h3>
+          <form onsubmit="handleSaveContacts(event)">
+            <div class="form-group">
+              <label class="form-label">Email Utama</label>
+              <input type="email" id="admin-email" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">URL Resume / CV</label>
+              <input type="text" id="admin-resume" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">URL GitHub</label>
+              <input type="text" id="admin-github" class="form-input">
+            </div>
+            <div class="form-group">
+              <label class="form-label">URL LinkedIn</label>
+              <input type="text" id="admin-linkedin" class="form-input">
+            </div>
+            <div class="form-group">
+              <label class="form-label">URL Twitter/X</label>
+              <input type="text" id="admin-twitter" class="form-input">
+            </div>
+            <div class="form-group">
+              <label class="form-label">URL Instagram</label>
+              <input type="text" id="admin-instagram" class="form-input">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Simpan Link Kontak</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const initialAppData = {
+      profile: {
+        name: "Aditia Rahmania",
+        role: "Mobile & UI/UX Designer",
+        status: "Tersedia untuk proyek baru",
+        avatar: "https://placehold.co/100x100/70B7BA/FFFFFF?text=AR",
+        bio: "Berfokus menciptakan antarmuka digital yang sederhana, intuitif, dan responsif. Mengutamakan kenyamanan pengguna di perangkat mobile dengan estetika yang bersih dan performa optimal."
+      },
+      hobbies: [
+        { id: "h1", icon: "✏️", title: "Desain UI", desc: "Eksplorasi komponen & tata letak modern" },
+        { id: "h2", icon: "🎵", title: "Musik Lo-Fi", desc: "Mendengarkan irama santai saat mendesain" },
+        { id: "h3", icon: "📚", title: "Membaca Buku", desc: "Topik UX research & sains perilaku" },
+        { id: "h4", icon: "🎮", title: "Casual Gaming", desc: "Game indie, puzzle, dan strategi" }
+      ],
+      skills: [
+        { id: "s1", name: "Mobile UI Design" },
+        { id: "s2", name: "User Experience" },
+        { id: "s3", name: "Figma & Prototyping" },
+        { id: "s4", name: "HTML5 & CSS3" },
+        { id: "s5", name: "Design System" },
+        { id: "s6", name: "Wireframing" }
+      ],
+      projects: [
+        { 
+          id: "p1", 
+          title: "Dompet Digital Clean UI", 
+          desc: "Desain aplikasi transaksi keuangan cepat dengan layout minim distraksi untuk mobile.",
+          link: "https://example.com/dompet-digital" 
+        },
+        { 
+          id: "p2", 
+          title: "E-Commerce Mobile Flow", 
+          desc: "Rancangan pengalaman belanja online responsif dari browsing hingga checkout.",
+          link: "https://example.com/ecommerce-flow" 
+        }
+      ],
+      contacts: {
+        email: "halo@aditia.dev",
+        resume: "#resume",
+        github: "https://github.com",
+        linkedin: "https://linkedin.com",
+        twitter: "https://twitter.com",
+        instagram: "https://instagram.com"
+      }
+    };
+
+    let appData = JSON.parse(JSON.stringify(initialAppData));
+    let isAuthenticated = false;
+    let itemToDelete = { type: null, id: null };
+    let isDarkMode = false;
+
+    const emojiList = ['🎨', '🎵', '📚', '🎮', '💻', '⚡', '☕', '🎧', '🏆', '🔥', '💡', '🌐', '📸', '🎯', '🛠️', '🚀', '📱', '✍️', '🎓', '🍕', '🚴', '✨', '💼', '⭐', '❤️', '⚙️', '💬', '📊', '📷', '🎬'];
+
+    function toggleEmojiPicker(targetInputId) {
+      const container = document.getElementById(`emoji-picker-${targetInputId}`);
+      if (!container) return;
+      
+      const isActive = container.classList.contains('active');
+      
+      // Close all open emoji pickers first
+      document.querySelectorAll('.emoji-picker-container').forEach(el => el.classList.remove('active'));
+
+      if (!isActive) {
+        container.classList.add('active');
+        if (container.children.length === 0) {
+          container.innerHTML = emojiList.map(e => `
+            <button type="button" class="emoji-item-btn" onclick="selectEmoji('${targetInputId}', '${e}')" title="${e}">${e}</button>
+          `).join('');
+        }
+      }
+    }
+
+    function selectEmoji(inputId, emoji) {
+      const input = document.getElementById(inputId);
+      if (input) {
+        if (inputId === 'form-icon') {
+          input.value = emoji; // Direct replace for icon field
+        } else {
+          input.value += ' ' + emoji; // Append for text inputs
+        }
+      }
+      const container = document.getElementById(`emoji-picker-${inputId}`);
+      if (container) container.classList.remove('active');
+    }
+
+    function toggleDarkMode() {
+      isDarkMode = !isDarkMode;
+      const themeBtn = document.getElementById('theme-toggle-btn');
+      if (isDarkMode) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeBtn.innerText = '☀️';
+        showToast('Mode Gelap diaktifkan');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        themeBtn.innerText = '🌙';
+        showToast('Mode Terang diaktifkan');
+      }
+    }
+
+    function renderFrontend() {
+      // Profile
+      document.getElementById('display-name').innerText = appData.profile.name;
+      document.getElementById('display-role').innerText = appData.profile.role;
+      document.getElementById('display-status').innerText = appData.profile.status;
+      document.getElementById('display-avatar').src = appData.profile.avatar;
+      document.getElementById('display-bio').innerText = appData.profile.bio;
+
+      // Hobbies
+      const hobbiesContainer = document.getElementById('display-hobbies');
+      hobbiesContainer.innerHTML = appData.hobbies.map(h => `
+        <div class="hobby-card">
+          <div class="hobby-icon">${h.icon}</div>
+          <div class="hobby-info">
+            <h3>${escapeHtml(h.title)}</h3>
+            <p>${escapeHtml(h.desc)}</p>
+          </div>
+        </div>
+      `).join('');
+
+      // Skills
+      const skillsContainer = document.getElementById('display-skills');
+      skillsContainer.innerHTML = appData.skills.map(s => `
+        <span class="skill-chip">${escapeHtml(s.name)}</span>
+      `).join('');
+
+      // Projects
+      const projectsContainer = document.getElementById('display-projects');
+      projectsContainer.innerHTML = appData.projects.map(p => `
+        <a href="${escapeHtml(p.link)}" target="_blank" class="project-card">
+          <h3>${escapeHtml(p.title)}</h3>
+          <p>${escapeHtml(p.desc)}</p>
+        </a>
+      `).join('');
+
+      // Contacts
+      const emailBtn = document.getElementById('display-email-btn');
+      if (emailBtn) emailBtn.href = `mailto:${appData.contacts.email}`;
+      
+      const resumeBtn = document.getElementById('display-resume-btn');
+      if (resumeBtn) resumeBtn.href = appData.contacts.resume;
+
+      // Socials with Tooltips
+      const socialsContainer = document.getElementById('display-socials');
+      socialsContainer.innerHTML = `
+        ${appData.contacts.github ? `<a href="${escapeHtml(appData.contacts.github)}" target="_blank" aria-label="GitHub" data-tooltip="GitHub Profil" class="social-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path></svg></a>` : ''}
+        ${appData.contacts.linkedin ? `<a href="${escapeHtml(appData.contacts.linkedin)}" target="_blank" aria-label="LinkedIn" data-tooltip="LinkedIn Profil" class="social-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>` : ''}
+        ${appData.contacts.twitter ? `<a href="${escapeHtml(appData.contacts.twitter)}" target="_blank" aria-label="Twitter" data-tooltip="Twitter / X" class="social-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg></a>` : ''}
+        ${appData.contacts.instagram ? `<a href="${escapeHtml(appData.contacts.instagram)}" target="_blank" aria-label="Instagram" data-tooltip="Instagram" class="social-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path></svg></a>` : ''}
+      `;
+    }
+
+    function handleContactSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('contact-name').value;
+      showToast(`Terima kasih, ${name}! Pesan Anda berhasil terkirim.`);
+      event.target.reset();
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    function openLoginModal() {
+      if (isAuthenticated) {
+        openAdminDashboard();
+      } else {
+        document.getElementById('login-modal').classList.add('active');
+        document.getElementById('login-error').style.display = 'none';
+      }
+    }
+
+    function closeLoginModal() {
+      document.getElementById('login-modal').classList.remove('active');
+    }
+
+    function handleLogin(event) {
+      event.preventDefault();
+      const u = document.getElementById('login-username').value;
+      const p = document.getElementById('login-password').value;
+
+      if (u === 'admin' && p === 'admin123') {
+        isAuthenticated = true;
+        closeLoginModal();
+        updateAdminNavButton();
+        openAdminDashboard();
+        showToast('Login berhasil! Selamat datang Admin.');
+      } else {
+        document.getElementById('login-error').style.display = 'block';
+      }
+    }
+
+    function handleLogout() {
+      isAuthenticated = false;
+      closeAdminDashboard();
+      updateAdminNavButton();
+      showToast('Anda telah logout dari Admin CMS.');
+    }
+
+    function updateAdminNavButton() {
+      const btnText = document.getElementById('admin-btn-text');
+      if (isAuthenticated) {
+        btnText.innerText = "Dashboard";
+      } else {
+        btnText.innerText = "Admin";
+      }
+    }
+
+    function openAdminDashboard() {
+      populateAdminForms();
+      renderAdminLists();
+      document.getElementById('admin-dashboard').classList.add('active');
+    }
+
+    function closeAdminDashboard() {
+      document.getElementById('admin-dashboard').classList.remove('active');
+    }
+
+    function switchTab(tabName) {
+      const tabs = ['profile', 'projects', 'hobbies', 'skills', 'contacts'];
+      tabs.forEach(t => {
+        document.getElementById(`tab-${t}`).style.display = (t === tabName) ? 'block' : 'none';
+      });
+
+      const btns = document.querySelectorAll('.tab-btn');
+      btns.forEach((btn, idx) => {
+        if (tabs[idx] === tabName) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    function populateAdminForms() {
+      document.getElementById('admin-name').value = appData.profile.name;
+      document.getElementById('admin-role').value = appData.profile.role;
+      document.getElementById('admin-status').value = appData.profile.status;
+      document.getElementById('admin-avatar').value = appData.profile.avatar;
+      document.getElementById('admin-bio').value = appData.profile.bio;
+
+      document.getElementById('admin-email').value = appData.contacts.email;
+      document.getElementById('admin-resume').value = appData.contacts.resume;
+      document.getElementById('admin-github').value = appData.contacts.github || '';
+      document.getElementById('admin-linkedin').value = appData.contacts.linkedin || '';
+      document.getElementById('admin-twitter').value = appData.contacts.twitter || '';
+      document.getElementById('admin-instagram').value = appData.contacts.instagram || '';
+    }
+
+    function renderAdminLists() {
+      // Projects
+      const projContainer = document.getElementById('admin-projects-list');
+      if (appData.projects.length === 0) {
+        projContainer.innerHTML = '<p style="font-size: 0.8rem; color: var(--text-muted);">Belum ada proyek.</p>';
+      } else {
+        projContainer.innerHTML = appData.projects.map(p => `
+          <div class="admin-card-item">
+            <div class="admin-card-info">
+              <h4>${escapeHtml(p.title)}</h4>
+              <p>${escapeHtml(p.desc)}</p>
+            </div>
+            <div class="admin-actions">
+              <button class="btn btn-secondary btn-sm" onclick="openEditItemModal('project', '${p.id}')">Edit</button>
+              <button class="btn btn-danger btn-sm" onclick="promptDelete('project', '${p.id}')">Hapus</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Hobbies
+      const hobContainer = document.getElementById('admin-hobbies-list');
+      if (appData.hobbies.length === 0) {
+        hobContainer.innerHTML = '<p style="font-size: 0.8rem; color: var(--text-muted);">Belum ada hobi.</p>';
+      } else {
+        hobContainer.innerHTML = appData.hobbies.map(h => `
+          <div class="admin-card-item">
+            <div class="admin-card-info">
+              <h4>${h.icon} ${escapeHtml(h.title)}</h4>
+              <p>${escapeHtml(h.desc)}</p>
+            </div>
+            <div class="admin-actions">
+              <button class="btn btn-secondary btn-sm" onclick="openEditItemModal('hobby', '${h.id}')">Edit</button>
+              <button class="btn btn-danger btn-sm" onclick="promptDelete('hobby', '${h.id}')">Hapus</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Skills
+      const skillContainer = document.getElementById('admin-skills-list');
+      if (appData.skills.length === 0) {
+        skillContainer.innerHTML = '<p style="font-size: 0.8rem; color: var(--text-muted);">Belum ada keahlian.</p>';
+      } else {
+        skillContainer.innerHTML = appData.skills.map(s => `
+          <div class="admin-card-item">
+            <div class="admin-card-info">
+              <h4>${escapeHtml(s.name)}</h4>
+            </div>
+            <div class="admin-actions">
+              <button class="btn btn-secondary btn-sm" onclick="openEditItemModal('skill', '${s.id}')">Edit</button>
+              <button class="btn btn-danger btn-sm" onclick="promptDelete('skill', '${s.id}')">Hapus</button>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    function handleSaveProfile(event) {
+      event.preventDefault();
+      appData.profile.name = document.getElementById('admin-name').value;
+      appData.profile.role = document.getElementById('admin-role').value;
+      appData.profile.status = document.getElementById('admin-status').value;
+      appData.profile.avatar = document.getElementById('admin-avatar').value;
+      appData.profile.bio = document.getElementById('admin-bio').value;
+
+      renderFrontend();
+      showToast('Profil berhasil diperbarui!');
+    }
+
+    function handleSaveContacts(event) {
+      event.preventDefault();
+      appData.contacts.email = document.getElementById('admin-email').value;
+      appData.contacts.resume = document.getElementById('admin-resume').value;
+      appData.contacts.github = document.getElementById('admin-github').value;
+      appData.contacts.linkedin = document.getElementById('admin-linkedin').value;
+      appData.contacts.twitter = document.getElementById('admin-twitter').value;
+      appData.contacts.instagram = document.getElementById('admin-instagram').value;
+
+      renderFrontend();
+      showToast('Kontak & Sosmed berhasil diperbarui!');
+    }
+
+    function openAddItemModal(type) {
+      document.getElementById('item-type').value = type;
+      document.getElementById('item-id').value = '';
+      const fieldsContainer = document.getElementById('item-form-fields');
+
+      if (type === 'project') {
+        document.getElementById('item-modal-title').innerText = 'Tambah Kartu Proyek';
+        fieldsContainer.innerHTML = `
+          <div class="form-group">
+            <label class="form-label">Judul Proyek</label>
+            <input type="text" id="form-title" class="form-input" required placeholder="Contoh: Dompet Digital Clean UI">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Deskripsi Ringkas</label>
+            <textarea id="form-desc" class="form-textarea" required placeholder="Jelaskan proyek ini secara singkat"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tautan / Link Proyek</label>
+            <input type="text" id="form-link" class="form-input" required placeholder="https://example.com/project">
+          </div>
+        `;
+      } else if (type === 'hobby') {
+        document.getElementById('item-modal-title').innerText = 'Tambah Kartu Hobi';
+        fieldsContainer.innerHTML = `
+          <div class="form-group">
+            <label class="form-label">Ikon / Emoji</label>
+            <div style="display: flex; gap: 0.4rem; align-items: center;">
+              <input type="text" id="form-icon" class="form-input" style="flex: 1;" required placeholder="🚀, 🎨, 📚, dll">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="toggleEmojiPicker('form-icon')">😀 Pilih Emoji</button>
+            </div>
+            <div id="emoji-picker-form-icon" class="emoji-picker-container"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nama Hobi</label>
+            <input type="text" id="form-title" class="form-input" required placeholder="Contoh: Desain UI">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Deskripsi Singkat</label>
+            <input type="text" id="form-desc" class="form-input" required placeholder="Contoh: Eksplorasi tata letak">
+          </div>
+        `;
+      } else if (type === 'skill') {
+        document.getElementById('item-modal-title').innerText = 'Tambah Tag Keahlian';
+        fieldsContainer.innerHTML = `
+          <div class="form-group">
+            <label class="form-label">Nama Keahlian</label>
+            <input type="text" id="form-title" class="form-input" required placeholder="Contoh: React Native">
+          </div>
+        `;
+      }
+
+      document.getElementById('item-modal').classList.add('active');
+    }
+
+    function openEditItemModal(type, id) {
+      document.getElementById('item-type').value = type;
+      document.getElementById('item-id').value = id;
+      const fieldsContainer = document.getElementById('item-form-fields');
+
+      if (type === 'project') {
+        const item = appData.projects.find(p => p.id === id);
+        if (!item) return;
+        document.getElementById('item-modal-title').innerText = 'Edit Kartu Proyek';
+        fieldsContainer.innerHTML = `
+          <div class="form-group">
+            <label class="form-label">Judul Proyek</label>
+            <input type="text" id="form-title" class="form-input" value="${escapeHtml(item.title)}" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Deskripsi Ringkas</label>
+            <textarea id="form-desc" class="form-textarea" required>${escapeHtml(item.desc)}</textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tautan / Link Proyek</label>
+            <input type="text" id="form-link" class="form-input" value="${escapeHtml(item.link)}" required>
+          </div>
+        `;
+      } else if (type === 'hobby') {
+        const item = appData.hobbies.find(h => h.id === id);
+        if (!item) return;
+        document.getElementById('item-modal-title').innerText = 'Edit Kartu Hobi';
+        fieldsContainer.innerHTML = `
+          <div class="form-group">
+            <label class="form-label">Ikon / Emoji</label>
+            <div style="display: flex; gap: 0.4rem; align-items: center;">
+              <input type="text" id="form-icon" class="form-input" style="flex: 1;" value="${escapeHtml(item.icon)}" required>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="toggleEmojiPicker('form-icon')">😀 Pilih Emoji</button>
+            </div>
+            <div id="emoji-picker-form-icon" class="emoji-picker-container"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nama Hobi</label>
+            <input type="text" id="form-title" class="form-input" value="${escapeHtml(item.title)}" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Deskripsi Singkat</label>
+            <input type="text" id="form-desc" class="form-input" value="${escapeHtml(item.desc)}" required>
+          </div>
+        `;
+      } else if (type === 'skill') {
+        const item = appData.skills.find(s => s.id === id);
+        if (!item) return;
+        document.getElementById('item-modal-title').innerText = 'Edit Tag Keahlian';
+        fieldsContainer.innerHTML = `
+          <div class="form-group">
+            <label class="form-label">Nama Keahlian</label>
+            <input type="text" id="form-title" class="form-input" value="${escapeHtml(item.name)}" required>
+          </div>
+        `;
+      }
+
+      document.getElementById('item-modal').classList.add('active');
+    }
+
+    function closeItemModal() {
+      document.getElementById('item-modal').classList.remove('active');
+    }
+
+    function handleSaveItem(event) {
+      event.preventDefault();
+      const type = document.getElementById('item-type').value;
+      const id = document.getElementById('item-id').value;
+
+      if (type === 'project') {
+        const title = document.getElementById('form-title').value;
+        const desc = document.getElementById('form-desc').value;
+        const link = document.getElementById('form-link').value;
+
+        if (id) {
+          const index = appData.projects.findIndex(p => p.id === id);
+          if (index !== -1) appData.projects[index] = { id, title, desc, link };
+        } else {
+          appData.projects.push({ id: 'p_' + Date.now(), title, desc, link });
+        }
+      } else if (type === 'hobby') {
+        const icon = document.getElementById('form-icon').value;
+        const title = document.getElementById('form-title').value;
+        const desc = document.getElementById('form-desc').value;
+
+        if (id) {
+          const index = appData.hobbies.findIndex(h => h.id === id);
+          if (index !== -1) appData.hobbies[index] = { id, icon, title, desc };
+        } else {
+          appData.hobbies.push({ id: 'h_' + Date.now(), icon, title, desc });
+        }
+      } else if (type === 'skill') {
+        const name = document.getElementById('form-title').value;
+
+        if (id) {
+          const index = appData.skills.findIndex(s => s.id === id);
+          if (index !== -1) appData.skills[index] = { id, name };
+        } else {
+          appData.skills.push({ id: 's_' + Date.now(), name });
+        }
+      }
+
+      closeItemModal();
+      renderAdminLists();
+      renderFrontend();
+      showToast('Item berhasil disimpan!');
+    }
+
+    function promptDelete(type, id) {
+      itemToDelete = { type, id };
+      document.getElementById('delete-modal').classList.add('active');
+    }
+
+    function closeDeleteModal() {
+      document.getElementById('delete-modal').classList.remove('active');
+      itemToDelete = { type: null, id: null };
+    }
+
+    function executeDelete() {
+      const { type, id } = itemToDelete;
+      if (!type || !id) return;
+
+      if (type === 'project') {
+        appData.projects = appData.projects.filter(p => p.id !== id);
+      } else if (type === 'hobby') {
+        appData.hobbies = appData.hobbies.filter(h => h.id !== id);
+      } else if (type === 'skill') {
+        appData.skills = appData.skills.filter(s => s.id !== id);
+      }
+
+      closeDeleteModal();
+      renderAdminLists();
+      renderFrontend();
+      showToast('Kartu berhasil dihapus!');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Initialize application on load
+    window.onload = function() {
+      renderFrontend();
+    };
+  </script>
+
+</body>
+</html>
